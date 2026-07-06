@@ -1,11 +1,21 @@
-/* [7.8] Trial-/Paywall-Screen (§9.3: ruhig, nicht aggressiv) */
+/* [7.8] Trial-/Paywall-Screen (§9.3: ruhig, nicht aggressiv)
+   Option B (Entscheidung Gründer, 2026-07-06): Der Checkout erscheint erst
+   hier — nach Trial-Ende bzw. bei beendetem Abo. Bei 'paused' (Zahlung
+   fehlgeschlagen) führt der Weg ins Customer Portal, denn das Abo existiert
+   noch; ein zweiter Checkout würde doppelt abrechnen.
+   Der neue Status kommt ausschließlich vom Stripe-Webhook (§9.3) — nach der
+   Rückkehr aus Stripe lädt useAuthBootstrap das Profil neu. */
 
+import { useState } from "react";
 import { useApp } from "../store/appStore.jsx";
+import { isMockMode } from "../services/config.js";
 import { subscriptionService } from "../services/subscriptionService.js";
 import { Button } from "../components/ui/Button.jsx";
 
 export function PaywallScreen() {
   const { state, dispatch } = useApp();
+  const [busy, setBusy] = useState(false);
+  const [failed, setFailed] = useState(false);
   const status = state.profile.subscription_status;
 
   const headline =
@@ -15,11 +25,23 @@ export function PaywallScreen() {
         ? "Dein Abo ist beendet."
         : "Deine kostenlose Testphase ist vorbei.";
 
-  function resume() {
-    // TODO: Real: Stripe Checkout / Customer Portal; Status wird ausschließlich
-    // per Stripe-Webhook gesetzt (§9.3). Mock: direkt auf 'active'.
-    const patch = subscriptionService.resumeSubscription();
-    dispatch({ type: "UPDATE_PROFILE", patch });
+  async function resume() {
+    if (isMockMode) {
+      // Mock: direkt auf 'active' — real setzt NUR der Webhook den Status.
+      dispatch({ type: "UPDATE_PROFILE", patch: subscriptionService.resumeSubscription() });
+      return;
+    }
+    setBusy(true);
+    setFailed(false);
+    const result =
+      status === "paused"
+        ? await subscriptionService.openCustomerPortal()
+        : await subscriptionService.startCheckout();
+    // Bei Erfolg verlässt der Redirect die App — hier landen nur Fehler.
+    if (!result.ok) {
+      setFailed(true);
+      setBusy(false);
+    }
   }
 
   return (
@@ -36,11 +58,16 @@ export function PaywallScreen() {
         150&nbsp;€ pro Monat, monatlich kündbar.
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-        <Button variant="red" onClick={resume}>
-          Abo fortsetzen
+        {failed && (
+          <div className="fm-note" role="alert">
+            Das hat gerade nicht geklappt. Versuch es gleich nochmal.
+          </div>
+        )}
+        <Button variant="red" disabled={busy} onClick={resume}>
+          {status === "paused" ? "Zahlung aktualisieren" : "Abo fortsetzen"}
         </Button>
         <p className="fm-small" style={{ textAlign: "center" }}>
-          Abgewickelt über Stripe. {/* TODO: Link zum Stripe Customer Portal (§9.3) */}
+          Abgewickelt über Stripe.
         </p>
       </div>
     </div>

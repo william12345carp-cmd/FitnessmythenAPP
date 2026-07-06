@@ -1,0 +1,14 @@
+# Supabase-Projektkonfiguration (CLI). Nur die Abweichungen vom Standard.
+
+project_id = "fitnessmythen"
+
+# Der Stripe-Webhook authentifiziert sich über die Stripe-Signatur
+# (STRIPE_WEBHOOK_SECRET), nicht über ein Supabase-JWT.
+[functions.stripe-webhook]
+verify_jwt = false
+
+[functions.create-checkout-session]
+verify_jwt = true
+
+[functions.create-portal-session]
+verify_jwt = true
