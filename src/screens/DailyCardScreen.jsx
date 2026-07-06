@@ -3,6 +3,7 @@
 import { useApp } from "../store/appStore.jsx";
 import { resolveCardText } from "../lib/ruleEngine.js";
 import { formatFolioDate } from "../lib/date.js";
+import { logService } from "../services/logService.js";
 import { analyticsService } from "../services/analyticsService.js";
 import { CheckIcon } from "../components/ui/CheckIcon.jsx";
 
@@ -18,12 +19,13 @@ export function DailyCardScreen({ log, card }) {
   const shopping = resolveCardText(card.shopping_hint, profile);
 
   function toggle() {
-    dispatch({
-      type: "SET_COMPLETED",
-      logDate: log.log_date,
-      completed: !log.completed,
-    });
-    analyticsService.track(log.completed ? "card_unchecked" : "card_completed");
+    const completed = !log.completed;
+    dispatch({ type: "SET_COMPLETED", logDate: log.log_date, completed });
+    // Optimistisch persistieren — der Haken darf nie am Netz hängen.
+    logService
+      .setCompleted(state.user.id, log.log_date, completed)
+      .catch((error) => console.error("[daily_logs] completed update failed", error));
+    analyticsService.track(completed ? "card_completed" : "card_unchecked");
   }
 
   return (

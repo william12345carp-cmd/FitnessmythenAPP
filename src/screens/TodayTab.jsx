@@ -5,6 +5,7 @@ import { CONTENT_CARDS } from "../data/mockCards.js";
 import { selectCard, daysSinceLastActivity, REENTRY_THRESHOLD_DAYS } from "../lib/ruleEngine.js";
 import { localDateKey } from "../lib/date.js";
 import { logContentGap } from "../services/contentGapService.js";
+import { logService } from "../services/logService.js";
 import { analyticsService } from "../services/analyticsService.js";
 import { DailyQuestionScreen } from "./DailyQuestionScreen.jsx";
 import { DailyCardScreen } from "./DailyCardScreen.jsx";
@@ -31,6 +32,17 @@ export function TodayTab() {
         completed: false,
       },
     });
+    // Optimistisch: die Karte erscheint sofort; ein Netzfehler kostet
+    // schlimmstenfalls eine Reentry-Erkennung, nie die heutige Karte.
+    logService
+      .addLog({
+        userId: state.user.id,
+        logDate: todayKey,
+        timeToday: dailyInput.time,
+        energyToday: dailyInput.energy,
+        cardId: card.id,
+      })
+      .catch((error) => console.error("[daily_logs] insert failed", error));
     analyticsService.track("daily_card_assigned", { reentry, gap: isContentGap });
   }
 

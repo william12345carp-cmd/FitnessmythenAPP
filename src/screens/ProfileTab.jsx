@@ -5,6 +5,7 @@ import { useApp, useNow } from "../store/appStore.jsx";
 import { authService } from "../services/authService.js";
 import { subscriptionService } from "../services/subscriptionService.js";
 import { reminderService } from "../services/reminderService.js";
+import { profileService } from "../services/profileService.js";
 import { analyticsService } from "../services/analyticsService.js";
 import { GOALS, LOCATIONS, REMINDER_OPTIONS, STATUS_LABELS } from "../data/options.js";
 import { parseDecimalInput, isPositiveNumber } from "../lib/number.js";
@@ -20,7 +21,8 @@ export function ProfileTab() {
   // Formular-State wird beim Öffnen der Bearbeitung aus dem Profil befüllt —
   // abgebrochene Änderungen bleiben so nie im Formular hängen.
   const [form, setForm] = useState(null); // null = Ansichtsmodus
-  const [portalHint, setPortalHint] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
+  const [portalHint, setPortalHint] = useState(null); // null | "mock" | "error"
   const editing = form !== null;
 
   function startEditing() {
@@ -36,23 +38,34 @@ export function ProfileTab() {
   const targetNum = editing ? parseDecimalInput(form.targetWeight) : null;
   const valid = editing && isPositiveNumber(weightNum) && isPositiveNumber(targetNum);
 
-  function save() {
-    dispatch({
-      type: "UPDATE_PROFILE",
-      patch: {
-        weight_kg: weightNum,
-        target_weight_kg: targetNum,
-        goal: form.goal,
-        location_equipment: form.location,
-      },
-    });
-    analyticsService.track("profile_updated");
-    setForm(null);
+  async function save() {
+    const patch = {
+      weight_kg: weightNum,
+      target_weight_kg: targetNum,
+      goal: form.goal,
+      location_equipment: form.location,
+    };
+    setSaveFailed(false);
+    try {
+      await profileService.updateProfile(p.id, patch);
+      dispatch({ type: "UPDATE_PROFILE", patch });
+      analyticsService.track("profile_updated");
+      setForm(null);
+    } catch (error) {
+      console.error("[profile] update failed", error);
+      setSaveFailed(true);
+    }
   }
 
   async function setReminder(value) {
     await reminderService.updateReminder(value);
     dispatch({ type: "UPDATE_PROFILE", patch: { reminder_setting: value } });
+  }
+
+  async function openPortal() {
+    const result = await subscriptionService.openCustomerPortal();
+    // Bei Erfolg verlässt der Redirect die App; hier landen nur Mock/Fehler.
+    if (!result.ok) setPortalHint(result.reason === "mock" ? "mock" : "error");
   }
 
   async function signOut() {
@@ -110,10 +123,21 @@ export function ProfileTab() {
               location={form.location}
               onLocationChange={(v) => setForm((f) => ({ ...f, location: v }))}
             />
+            {saveFailed && (
+              <div className="fm-note" role="alert">
+                Das Speichern hat gerade nicht geklappt. Versuch es gleich nochmal.
+              </div>
+            )}
             <Button variant="primary" disabled={!valid} onClick={save}>
               Speichern
             </Button>
-            <Button variant="ghost" onClick={() => setForm(null)}>
+            <Button
+              variant="ghost"
+              onClick={() => {
+                setForm(null);
+                setSaveFailed(false);
+              }}
+            >
               Abbrechen
             </Button>
           </div>
@@ -141,7 +165,7 @@ export function ProfileTab() {
         {/* TODO: Push-Registrierung erst mit echter Integration (§6) */}
       </div>
 
-      {/* --- Abo (§9.3, Mock-Verwaltung) --- */}
+      {/* --- Abo (§9.3) --- */}
       <div className="fm-section">
         <p className="fm-section__title">Abo</p>
         <div className="fm-row">
@@ -163,19 +187,18 @@ export function ProfileTab() {
           <span className="fm-row__value">150 € / Monat</span>
         </div>
         <div style={{ marginTop: 12, display: "flex", flexDirection: "column", gap: 8 }}>
-          <Button
-            variant="ghost"
-            onClick={() => {
-              subscriptionService.openCustomerPortal();
-              setPortalHint(true);
-            }}
-          >
+          <Button variant="ghost" onClick={openPortal}>
             Abo verwalten oder kündigen
           </Button>
-          {portalHint && (
+          {portalHint === "mock" && (
             <div className="fm-note" role="status">
-              Prototyp: Öffnet später das Stripe Customer Portal — dort verwaltest und kündigst du
-              dein Abo. {/* TODO: Stripe Customer Portal (§9.3) */}
+              Mock-Modus (kein Supabase konfiguriert): Hier öffnet sich später das Stripe Customer
+              Portal — dort verwaltest und kündigst du dein Abo.
+            </div>
+          )}
+          {portalHint === "error" && (
+            <div className="fm-note" role="status">
+              Das Abo-Portal konnte gerade nicht geöffnet werden. Versuch es gleich nochmal.
             </div>
           )}
         </div>

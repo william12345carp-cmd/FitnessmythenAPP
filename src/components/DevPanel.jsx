@@ -1,16 +1,23 @@
-/* ---------- Dev-Panel — NUR PROTOTYP, vor Produktion entfernen ----------
+/* ---------- Dev-Panel — Entwicklungswerkzeug, kein Produktfeature ----------
    Zweck: Tageswechsel (§5.3), Reentry ab 3 Tagen (§5.2) und Trial-Ende nach
-   7 Tagen (§9.3) sind ohne Zeitsimulation nicht testbar. Kein Produktfeature.
-------------------------------------------------------------------------- */
+   7 Tagen (§9.3) sind ohne Zeitsimulation nicht testbar.
+   Sichtbarkeit: nur im Dev-Server — oder wenn VITE_ENABLE_DEV_PANEL=true
+   gesetzt ist (für Vercel-Preview-/Staging-Deploys). In Production-Builds
+   ohne dieses Flag erscheint das Panel nicht.
+--------------------------------------------------------------------------- */
 
 import { useState } from "react";
 import { useApp, useNow } from "../store/appStore.jsx";
 import { localDateKey } from "../lib/date.js";
 
+const DEV_PANEL_ENABLED = import.meta.env.DEV || import.meta.env.VITE_ENABLE_DEV_PANEL === "true";
+
 export function DevPanel() {
   const { state, dispatch } = useApp();
   const [open, setOpen] = useState(false);
   const now = useNow();
+
+  if (!DEV_PANEL_ENABLED) return null;
 
   return (
     <>
@@ -19,7 +26,7 @@ export function DevPanel() {
       </button>
       {open && (
         <div className="fm-dev-panel">
-          <strong>Prototyp-Werkzeuge</strong>
+          <strong>Dev-Werkzeuge</strong>
           <span>
             Simuliertes Datum: {localDateKey(now)}
             {state.devDayOffset !== 0 ? ` (+${state.devDayOffset} Tage)` : ""}
@@ -44,7 +51,9 @@ export function DevPanel() {
             </>
           )}
           <button onClick={() => dispatch({ type: "DEV_RESET" })}>App zurücksetzen</button>
-          <span style={{ color: "var(--ink-faint)" }}>TODO: vor Produktion entfernen.</span>
+          <span style={{ color: "var(--ink-faint)" }}>
+            Zeitsimulation wirkt nur lokal, nicht auf Supabase-Daten.
+          </span>
         </div>
       )}
     </>

@@ -1,7 +1,8 @@
 /* ============================================================================
    [5] APP-STATE — Context + Reducer
    Struktur spiegelt das Datenmodell §9.1 (profiles, daily_logs) wider.
-   Prototyp: In-Memory. TODO: Persistenz via Supabase (RLS gemäß §9.2).
+   Persistenz: Supabase (RLS §9.2) über die Services; der Store bleibt die
+   synchrone Wahrheit fürs UI und wird beim Start hydratisiert (useAuthBootstrap).
 
    Performance: State und Dispatch liegen in getrennten Contexts —
    `dispatch` ist referenzstabil, reine Aktions-Komponenten rendern dadurch
@@ -11,26 +12,46 @@
 import { createContext, useContext, useMemo, useReducer } from "react";
 
 export const initialState = {
+  // true bis der Session-Check beim App-Start abgeschlossen ist (§9.4).
+  // Im Mock-Modus beendet useAuthBootstrap die Boot-Phase sofort.
+  booting: true,
   route: "landing", // landing | login | onboarding_medical | onboarding_basics | app
   tab: "heute", // heute | profil
+  loginNotice: null, // "expired" | null — abgelaufener Magic Link (§9.4)
   user: null, // { id, email }
   profile: null, // Spalten wie in `profiles` (§9.1)
   logs: [], // Zeilen wie in `daily_logs` (§9.1): {log_date, time_today, energy_today, card_id, completed}
-  // Nur Prototyp: simulierter Zeit-Offset in Tagen, um Tageswechsel,
+  // Nur Dev-Werkzeug: simulierter Zeit-Offset in Tagen, um Tageswechsel,
   // Reentry (>=3 Tage) und Trial-Ende (7 Tage) testbar zu machen.
   devDayOffset: 0,
 };
 
 export function appReducer(state, action) {
   switch (action.type) {
+    case "BOOT_COMPLETE":
+      return { ...state, booting: false };
     case "NAVIGATE":
-      return { ...state, route: action.route };
+      return { ...state, route: action.route, loginNotice: null };
     case "SET_TAB":
       return { ...state, tab: action.tab };
     case "SIGN_IN":
       return { ...state, user: action.user };
     case "SIGN_OUT":
-      return { ...initialState, devDayOffset: state.devDayOffset };
+      return { ...initialState, booting: false, devDayOffset: state.devDayOffset };
+    // Session-Restore beim App-Start: Profil existiert → direkt in die App (§9.4).
+    case "RESTORE_SESSION":
+      return {
+        ...state,
+        booting: false,
+        user: action.user,
+        profile: action.profile,
+        logs: action.logs,
+        route: "app",
+        tab: "heute",
+      };
+    // Magic Link abgelaufen → Login mit freundlichem Hinweis (§9.4).
+    case "AUTH_LINK_EXPIRED":
+      return { ...state, booting: false, route: "login", loginNotice: "expired" };
     case "CREATE_PROFILE":
       return { ...state, profile: action.profile, route: "app", tab: "heute" };
     case "UPDATE_PROFILE":
@@ -51,7 +72,7 @@ export function appReducer(state, action) {
         ? { ...state, profile: { ...state.profile, subscription_status: action.status } }
         : state;
     case "DEV_RESET":
-      return { ...initialState };
+      return { ...initialState, booting: false };
     default:
       return state;
   }
@@ -79,7 +100,7 @@ export function useApp() {
   return { state, dispatch };
 }
 
-/** "Jetzt" des Prototyps inkl. Dev-Zeitsimulation. */
+/** "Jetzt" der App inkl. Dev-Zeitsimulation. */
 export function useNow() {
   const state = useAppState();
   return useMemo(() => new Date(Date.now() + state.devDayOffset * 86400000), [state.devDayOffset]);

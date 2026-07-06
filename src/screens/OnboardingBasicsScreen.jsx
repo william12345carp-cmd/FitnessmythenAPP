@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useApp, useNow } from "../store/appStore.jsx";
-import { subscriptionService } from "../services/subscriptionService.js";
+import { profileService } from "../services/profileService.js";
 import { analyticsService } from "../services/analyticsService.js";
 import { parseDecimalInput, isPositiveNumber } from "../lib/number.js";
 import { BasicsFields } from "../components/BasicsFields.jsx";
@@ -16,6 +16,8 @@ export function OnboardingBasicsScreen() {
   const [touchedTarget, setTouchedTarget] = useState(false);
   const [goal, setGoal] = useState(null);
   const [location, setLocation] = useState(null);
+  const [saving, setSaving] = useState(false);
+  const [saveFailed, setSaveFailed] = useState(false);
 
   // §4: Zielgewicht = Körpergewicht, falls nicht abweichend angegeben.
   useEffect(() => {
@@ -26,26 +28,31 @@ export function OnboardingBasicsScreen() {
   const targetNum = parseDecimalInput(targetWeight);
   const valid = isPositiveNumber(weightNum) && isPositiveNumber(targetNum) && goal && location;
 
-  function finish() {
-    // Trial startet mit Registrierung (Mock).
-    // TODO: Position des Stripe-Checkouts im Flow (vor/nach Onboarding) ist im
-    // Master-Prompt nicht festgelegt — Entscheidung liegt beim Gründer.
-    const sub = subscriptionService.startTrial(now);
-    const profile = {
-      id: state.user.id,
-      created_at: now.toISOString(),
-      weight_kg: weightNum,
-      target_weight_kg: targetNum,
-      goal,
-      location_equipment: location,
-      reminder_setting: "keine",
-      ...sub,
-      stripe_customer_id: null, // TODO: via Stripe Webhook setzen (§9.3)
-      stripe_subscription_id: null, // TODO: via Stripe Webhook setzen (§9.3)
-    };
-    analyticsService.track("onboarding_completed");
-    // §5.4 Cold-Start: sofort Tagesfrage → erste Karte, kein Warten auf morgen.
-    dispatch({ type: "CREATE_PROFILE", profile });
+  async function finish() {
+    // Option B (Entscheidung Gründer, 2026-07-06): Trial startet mit der
+    // Registrierung — die Trial-Felder setzt die DB beim Insert (kein Stripe
+    // im Onboarding; Checkout erscheint erst an der Paywall).
+    setSaving(true);
+    setSaveFailed(false);
+    try {
+      const profile = await profileService.createProfile(
+        {
+          userId: state.user.id,
+          weightKg: weightNum,
+          targetWeightKg: targetNum,
+          goal,
+          locationEquipment: location,
+        },
+        now
+      );
+      analyticsService.track("onboarding_completed");
+      // §5.4 Cold-Start: sofort Tagesfrage → erste Karte, kein Warten auf morgen.
+      dispatch({ type: "CREATE_PROFILE", profile });
+    } catch (error) {
+      console.error("[onboarding] profile insert failed", error);
+      setSaveFailed(true);
+      setSaving(false);
+    }
   }
 
   return (
@@ -76,8 +83,14 @@ export function OnboardingBasicsScreen() {
         />
       </div>
 
-      <div style={{ marginTop: 28 }}>
-        <Button variant="primary" disabled={!valid} onClick={finish}>
+      <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 10 }}>
+        {saveFailed && (
+          <div className="fm-note" role="alert">
+            Das Speichern hat gerade nicht geklappt. Deine Angaben sind noch da — versuch es gleich
+            nochmal.
+          </div>
+        )}
+        <Button variant="primary" disabled={!valid || saving} onClick={finish}>
           Fertig — heute starten
         </Button>
       </div>
