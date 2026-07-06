@@ -1,0 +1,7 @@
+@import "./styles/tokens.css";
+
+/* Basis-Reset für den Standalone-Betrieb (im Artefakt-Prototyp übernahm die
+   Host-Seite dieses Verhalten). Keine Design-Änderung. */
+body {
+  margin: 0;
+}
