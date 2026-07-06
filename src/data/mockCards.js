@@ -16,8 +16,7 @@ export const CONTENT_CARDS = [
     location_tag: "egal",
     is_reentry_card: false,
     core_action_text: "Heute reicht: 10 Minuten Bewegung.",
-    core_action_detail:
-      "Mach einen 10-minütigen Spaziergang, egal wann er heute reinpasst.",
+    core_action_detail: "Mach einen 10-minütigen Spaziergang, egal wann er heute reinpasst.",
     core_action_reason:
       "Kurze Bewegung wirkt bei niedriger Energie oft aktivierender als Ruhe — ganz ohne Trainingsdruck. Das reicht heute völlig.",
     secondary_text:
@@ -32,8 +31,7 @@ export const CONTENT_CARDS = [
     location_tag: "fitnessstudio",
     is_reentry_card: false,
     core_action_text: "Heute: 40 Minuten Ganzkörpertraining.",
-    core_action_detail:
-      "3 Sätze Kniebeuge, Rudern, Schulterdrücken — je 8–12 Wiederholungen.",
+    core_action_detail: "3 Sätze Kniebeuge, Rudern, Schulterdrücken — je 8–12 Wiederholungen.",
     core_action_reason:
       "Ganzkörper-Krafttraining 2–3x/Woche ist die am besten belegte Maßnahme für langfristige Gesundheit und Muskelerhalt.",
     secondary_text:
@@ -65,8 +63,7 @@ export const CONTENT_CARDS = [
     location_tag: "zuhause_kurzhanteln",
     is_reentry_card: false,
     core_action_text: "Heute: 20 Minuten Kurzhantel-Ganzkörper.",
-    core_action_detail:
-      "Kniebeuge mit Hanteln, Ausfallschritte, Rudern vorgebeugt — je 3 Sätze.",
+    core_action_detail: "Kniebeuge mit Hanteln, Ausfallschritte, Rudern vorgebeugt — je 3 Sätze.",
     core_action_reason:
       "Auch mit wenig Equipment lässt sich ein vollständiger Trainingsreiz setzen, wenn die großen Muskelgruppen angesprochen werden.",
     secondary_text: null,
@@ -80,8 +77,7 @@ export const CONTENT_CARDS = [
     location_tag: "zuhause_ohne",
     is_reentry_card: false,
     core_action_text: "Heute: 15 Minuten Eigengewicht-Ganzkörper.",
-    core_action_detail:
-      "Kniebeuge, Liegestütz, Ausfallschritte — je 3 Runden à 10 Wiederholungen.",
+    core_action_detail: "Kniebeuge, Liegestütz, Ausfallschritte — je 3 Runden à 10 Wiederholungen.",
     core_action_reason:
       "Ohne Equipment lässt sich mit Eigengewicht ein vollständiger Trainingsreiz für alle großen Muskelgruppen setzen — auch in 15 Minuten.",
     secondary_text: null,
@@ -110,8 +106,7 @@ export const CONTENT_CARDS = [
     location_tag: "fitnessstudio",
     is_reentry_card: false,
     core_action_text: "Heute: 25 Minuten Oberkörper-Fokus.",
-    core_action_detail:
-      "Bankdrücken oder Liegestütz, Rudern, Schulterdrücken — je 3 Sätze à 10.",
+    core_action_detail: "Bankdrücken oder Liegestütz, Rudern, Schulterdrücken — je 3 Sätze à 10.",
     core_action_reason:
       "Regelmäßiger Wechsel zwischen Muskelgruppen sorgt für ausgewogenen Aufbau ohne Übertraining einzelner Bereiche.",
     secondary_text: null,

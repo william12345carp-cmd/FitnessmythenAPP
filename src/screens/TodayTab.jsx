@@ -2,11 +2,7 @@
 
 import { useApp, useNow } from "../store/appStore.jsx";
 import { CONTENT_CARDS } from "../data/mockCards.js";
-import {
-  selectCard,
-  daysSinceLastActivity,
-  REENTRY_THRESHOLD_DAYS,
-} from "../lib/ruleEngine.js";
+import { selectCard, daysSinceLastActivity, REENTRY_THRESHOLD_DAYS } from "../lib/ruleEngine.js";
 import { localDateKey } from "../lib/date.js";
 import { logContentGap } from "../services/contentGapService.js";
 import { analyticsService } from "../services/analyticsService.js";
@@ -20,14 +16,8 @@ export function TodayTab() {
   const todayLog = state.logs.find((l) => l.log_date === todayKey);
 
   function handleAnswered(dailyInput) {
-    const reentry =
-      daysSinceLastActivity(state.logs, todayKey) >= REENTRY_THRESHOLD_DAYS;
-    const { card, isContentGap } = selectCard(
-      CONTENT_CARDS,
-      state.profile,
-      dailyInput,
-      reentry
-    );
+    const reentry = daysSinceLastActivity(state.logs, todayKey) >= REENTRY_THRESHOLD_DAYS;
+    const { card, isContentGap } = selectCard(CONTENT_CARDS, state.profile, dailyInput, reentry);
     if (isContentGap) logContentGap(dailyInput, state.profile, reentry);
     dispatch({
       type: "ADD_LOG",

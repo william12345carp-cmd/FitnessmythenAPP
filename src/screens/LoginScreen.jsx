@@ -69,12 +69,12 @@ export function LoginScreen() {
       {phase === "sent" && (
         <div role="status">
           <p className="fm-body" style={{ marginBottom: 20 }}>
-            Wir haben dir einen Anmelde-Link an <strong>{email}</strong> gesendet.
-            Öffne die E-Mail und tippe auf den Link.
+            Wir haben dir einen Anmelde-Link an <strong>{email}</strong> gesendet. Öffne die E-Mail
+            und tippe auf den Link.
           </p>
           <div className="fm-note" style={{ marginBottom: 20 }}>
-            Prototyp: Der E-Mail-Versand ist noch nicht angebunden. Die beiden
-            Buttons unten simulieren das Öffnen des Links.
+            Prototyp: Der E-Mail-Versand ist noch nicht angebunden. Die beiden Buttons unten
+            simulieren das Öffnen des Links.
             {/* TODO: Supabase Magic Link real anbinden (§9.4) */}
           </div>
           <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -92,8 +92,7 @@ export function LoginScreen() {
         <div role="status">
           {/* §9.4: klarer, freundlicher Hinweis bei abgelaufenem Link */}
           <p className="fm-body" style={{ marginBottom: 20 }}>
-            Link abgelaufen — das passiert nach 60 Minuten. Fordere einfach einen
-            neuen Link an.
+            Link abgelaufen — das passiert nach 60 Minuten. Fordere einfach einen neuen Link an.
           </p>
           <Button variant="primary" onClick={send}>
             Neuen Link anfordern

@@ -10,7 +10,7 @@ export class ErrorBoundary extends Component {
 
   componentDidCatch(error, info) {
     // TODO: An Error-Tracking anbinden, sobald Analytics integriert ist.
-    // eslint-disable-next-line no-console
+
     console.error("[error-boundary]", error, info);
   }
 
@@ -20,16 +20,11 @@ export class ErrorBoundary extends Component {
         <div className="fm-root">
           <div className="fm-phone">
             <div className="fm-screen fm-screen--center" role="alert">
-              <h1 className="fm-display fm-display--md">
-                Etwas ist schiefgelaufen.
-              </h1>
+              <h1 className="fm-display fm-display--md">Etwas ist schiefgelaufen.</h1>
               <p className="fm-body" style={{ margin: "12px 0 24px" }}>
                 Lade die Seite neu — deine Karte wartet danach wieder auf dich.
               </p>
-              <button
-                className="fm-btn fm-btn--primary"
-                onClick={() => window.location.reload()}
-              >
+              <button className="fm-btn fm-btn--primary" onClick={() => window.location.reload()}>
                 Neu laden
               </button>
             </div>

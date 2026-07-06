@@ -12,8 +12,8 @@ export function PaywallScreen() {
     status === "paused"
       ? "Deine Zahlung konnte nicht verarbeitet werden."
       : status === "cancelled"
-      ? "Dein Abo ist beendet."
-      : "Deine kostenlose Testphase ist vorbei.";
+        ? "Dein Abo ist beendet."
+        : "Deine kostenlose Testphase ist vorbei.";
 
   function resume() {
     // TODO: Real: Stripe Checkout / Customer Portal; Status wird ausschließlich
@@ -29,8 +29,8 @@ export function PaywallScreen() {
         {headline}
       </h1>
       <p className="fm-body" style={{ marginBottom: 8 }}>
-        Deine Daten und Einstellungen bleiben vollständig erhalten. Sobald du
-        fortsetzt, ist deine heutige Karte sofort wieder da.
+        Deine Daten und Einstellungen bleiben vollständig erhalten. Sobald du fortsetzt, ist deine
+        heutige Karte sofort wieder da.
       </p>
       <p className="fm-body" style={{ marginBottom: 26 }}>
         150&nbsp;€ pro Monat, monatlich kündbar.
@@ -40,8 +40,7 @@ export function PaywallScreen() {
           Abo fortsetzen
         </Button>
         <p className="fm-small" style={{ textAlign: "center" }}>
-          Abgewickelt über Stripe.{" "}
-          {/* TODO: Link zum Stripe Customer Portal (§9.3) */}
+          Abgewickelt über Stripe. {/* TODO: Link zum Stripe Customer Portal (§9.3) */}
         </p>
       </div>
     </div>

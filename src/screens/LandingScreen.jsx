@@ -21,9 +21,8 @@ export function LandingScreen() {
         </h1>
         <div className="fm-landing-rule" />
         <p className="fm-body">
-          Fitnessmythen beantwortet dir jeden Tag genau eine Frage: Was ist heute die
-          eine sinnvolle Handlung für meine Gesundheit? Kurz, wissenschaftlich belegt,
-          alltagstauglich.
+          Fitnessmythen beantwortet dir jeden Tag genau eine Frage: Was ist heute die eine sinnvolle
+          Handlung für meine Gesundheit? Kurz, wissenschaftlich belegt, alltagstauglich.
         </p>
       </div>
 
@@ -49,12 +48,11 @@ export function LandingScreen() {
         <p className="fm-section__title">So funktioniert es</p>
         <ol className="fm-steps">
           <li className="fm-body">
-            Du beantwortest zwei kurze Fragen: Wie viel Zeit hast du heute? Wie ist
-            deine Energie?
+            Du beantwortest zwei kurze Fragen: Wie viel Zeit hast du heute? Wie ist deine Energie?
           </li>
           <li className="fm-body">
-            Du bekommst eine Karte mit genau einer Kern-Handlung — und einer kurzen,
-            ehrlichen Begründung.
+            Du bekommst eine Karte mit genau einer Kern-Handlung — und einer kurzen, ehrlichen
+            Begründung.
           </li>
           <li className="fm-body">Du erledigst sie und hakst sie ab. Das war der Tag.</li>
         </ol>
@@ -63,8 +61,7 @@ export function LandingScreen() {
       <div className="fm-section">
         <p className="fm-section__title">Preis</p>
         <p className="fm-body">
-          7 Tage kostenlos testen, danach 150&nbsp;€ pro Monat. Monatlich kündbar,
-          ohne Bindung.
+          7 Tage kostenlos testen, danach 150&nbsp;€ pro Monat. Monatlich kündbar, ohne Bindung.
         </p>
       </div>
 

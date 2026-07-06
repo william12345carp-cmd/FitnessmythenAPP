@@ -34,8 +34,7 @@ export function OnboardingMedicalScreen() {
         <Wordmark />
         {/* §4: EXAKT dieser Text, Nutzer kann nicht fortfahren. */}
         <h1 className="fm-display fm-display--md" style={{ margin: "26px 0 14px" }}>
-          Bitte sprich zuerst mit deinem Arzt. Diese App ersetzt keine medizinische
-          Behandlung.
+          Bitte sprich zuerst mit deinem Arzt. Diese App ersetzt keine medizinische Behandlung.
         </h1>
         <div style={{ marginTop: 24 }}>
           <Button variant="ghost" onClick={() => dispatch({ type: "NAVIGATE", route: "landing" })}>

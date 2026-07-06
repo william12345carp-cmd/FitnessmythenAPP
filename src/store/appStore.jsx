@@ -82,8 +82,5 @@ export function useApp() {
 /** "Jetzt" des Prototyps inkl. Dev-Zeitsimulation. */
 export function useNow() {
   const state = useAppState();
-  return useMemo(
-    () => new Date(Date.now() + state.devDayOffset * 86400000),
-    [state.devDayOffset]
-  );
+  return useMemo(() => new Date(Date.now() + state.devDayOffset * 86400000), [state.devDayOffset]);
 }

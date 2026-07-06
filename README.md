@@ -29,20 +29,20 @@ Browser-Reload setzt den Prototyp zurück.
 
 ## Architektur
 
-| Ebene | Pfad | Inhalt |
-|---|---|---|
-| Design-Tokens & Global CSS | `src/styles/tokens.css` | Farben, Typografie, alle Komponenten-Styles (§8) |
-| Mock-Content | `src/data/mockCards.js` | Die 7 Beispielkarten aus §7 + Fallback-Platzhalter |
-| Options-Konstanten | `src/data/options.js` | Ziele, Orte, Zeit/Energie, Erinnerung, Statuslabels (§9.1-Werte) |
-| Regel-Engine | `src/lib/ruleEngine.js` | Kartenauswahl (§5.2), Protein (§5.1), Abo-Sperre (§9.3) — pure functions |
-| Datums-Helfer | `src/lib/date.js` | Lokale Mitternacht (§5.3), Folio-Datum |
-| Services (Mock) | `src/services/` | Auth (Magic Link), Abo (Stripe), Erinnerung (Push), Analytics, Content-Gap-Log — Signaturen für spätere Integration vorbereitet |
-| App-State | `src/store/appStore.jsx` | Context + Reducer, spiegelt `profiles`/`daily_logs` (§9.1) |
-| UI-Primitives | `src/components/ui/` | Button, Choice, ChoiceGroup (Radiogroup), Field, Wordmark, CheckIcon |
-| Geteilte Bausteine | `src/components/` | BasicsFields (§4-Felder, von Onboarding UND Profil genutzt), AppShell, DevPanel, ErrorBoundary |
-| Zahlen-Helfer | `src/lib/number.js` | Dezimal-Parsing (Komma/Punkt), Validierung |
-| Integrations-Config | `src/services/config.js` + `.env.example` | Env-Platzhalter für Supabase/Stripe/Analytics/Push — vorbereitet, nicht aktiv |
-| Screens | `src/screens/` | Landing, Login, Onboarding (2 Schritte), Tagesfrage, Tageskarte, Heute-Tab, Paywall, Profil |
+| Ebene                      | Pfad                                      | Inhalt                                                                                                                          |
+| -------------------------- | ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| Design-Tokens & Global CSS | `src/styles/tokens.css`                   | Farben, Typografie, alle Komponenten-Styles (§8)                                                                                |
+| Mock-Content               | `src/data/mockCards.js`                   | Die 7 Beispielkarten aus §7 + Fallback-Platzhalter                                                                              |
+| Options-Konstanten         | `src/data/options.js`                     | Ziele, Orte, Zeit/Energie, Erinnerung, Statuslabels (§9.1-Werte)                                                                |
+| Regel-Engine               | `src/lib/ruleEngine.js`                   | Kartenauswahl (§5.2), Protein (§5.1), Abo-Sperre (§9.3) — pure functions                                                        |
+| Datums-Helfer              | `src/lib/date.js`                         | Lokale Mitternacht (§5.3), Folio-Datum                                                                                          |
+| Services (Mock)            | `src/services/`                           | Auth (Magic Link), Abo (Stripe), Erinnerung (Push), Analytics, Content-Gap-Log — Signaturen für spätere Integration vorbereitet |
+| App-State                  | `src/store/appStore.jsx`                  | Context + Reducer, spiegelt `profiles`/`daily_logs` (§9.1)                                                                      |
+| UI-Primitives              | `src/components/ui/`                      | Button, Choice, ChoiceGroup (Radiogroup), Field, Wordmark, CheckIcon                                                            |
+| Geteilte Bausteine         | `src/components/`                         | BasicsFields (§4-Felder, von Onboarding UND Profil genutzt), AppShell, DevPanel, ErrorBoundary                                  |
+| Zahlen-Helfer              | `src/lib/number.js`                       | Dezimal-Parsing (Komma/Punkt), Validierung                                                                                      |
+| Integrations-Config        | `src/services/config.js` + `.env.example` | Env-Platzhalter für Supabase/Stripe/Analytics/Push — vorbereitet, nicht aktiv                                                   |
+| Screens                    | `src/screens/`                            | Landing, Login, Onboarding (2 Schritte), Tagesfrage, Tageskarte, Heute-Tab, Paywall, Profil                                     |
 
 ## Qualitätshinweise
 

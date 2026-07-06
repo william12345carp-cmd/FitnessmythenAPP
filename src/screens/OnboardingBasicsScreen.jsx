@@ -24,8 +24,7 @@ export function OnboardingBasicsScreen() {
 
   const weightNum = parseDecimalInput(weight);
   const targetNum = parseDecimalInput(targetWeight);
-  const valid =
-    isPositiveNumber(weightNum) && isPositiveNumber(targetNum) && goal && location;
+  const valid = isPositiveNumber(weightNum) && isPositiveNumber(targetNum) && goal && location;
 
   function finish() {
     // Trial startet mit Registrierung (Mock).

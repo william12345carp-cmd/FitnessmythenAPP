@@ -14,11 +14,7 @@ export function DevPanel() {
 
   return (
     <>
-      <button
-        className="fm-dev-toggle"
-        aria-expanded={open}
-        onClick={() => setOpen((o) => !o)}
-      >
+      <button className="fm-dev-toggle" aria-expanded={open} onClick={() => setOpen((o) => !o)}>
         DEV
       </button>
       {open && (
@@ -48,9 +44,7 @@ export function DevPanel() {
             </>
           )}
           <button onClick={() => dispatch({ type: "DEV_RESET" })}>App zurücksetzen</button>
-          <span style={{ color: "var(--ink-faint)" }}>
-            TODO: vor Produktion entfernen.
-          </span>
+          <span style={{ color: "var(--ink-faint)" }}>TODO: vor Produktion entfernen.</span>
         </div>
       )}
     </>

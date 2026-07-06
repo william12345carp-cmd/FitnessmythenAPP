@@ -14,6 +14,5 @@ export function logContentGap(dailyInput, profile, reentry) {
     at: new Date().toISOString(),
   };
   contentGapLog.push(entry);
-  // eslint-disable-next-line no-console
   console.warn("[content-gap]", entry);
 }

@@ -32,7 +32,7 @@ export function AppShell() {
   return (
     <>
       <div style={{ flex: 1, display: "flex", flexDirection: "column", overflowY: "auto" }}>
-        {state.tab === "heute" ? (locked ? <PaywallScreen /> : <TodayTab />) : <ProfileTab />}
+        {state.tab === "heute" ? locked ? <PaywallScreen /> : <TodayTab /> : <ProfileTab />}
       </div>
       <nav className="fm-nav" aria-label="Hauptnavigation">
         <button

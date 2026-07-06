@@ -12,8 +12,7 @@ export function DailyQuestionScreen({ todayKey, onAnswered }) {
   const [time, setTime] = useState(null);
   const [energy, setEnergy] = useState(null);
 
-  const reentry =
-    daysSinceLastActivity(state.logs, todayKey) >= REENTRY_THRESHOLD_DAYS;
+  const reentry = daysSinceLastActivity(state.logs, todayKey) >= REENTRY_THRESHOLD_DAYS;
 
   return (
     <div className="fm-screen">

@@ -152,7 +152,9 @@ export function ProfileTab() {
           <div className="fm-row">
             <span className="fm-row__label">Testphase endet</span>
             <span className="fm-row__value">
-              {new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "long" }).format(trialEnds)}
+              {new Intl.DateTimeFormat("de-DE", { day: "numeric", month: "long" }).format(
+                trialEnds
+              )}
             </span>
           </div>
         )}
@@ -172,8 +174,8 @@ export function ProfileTab() {
           </Button>
           {portalHint && (
             <div className="fm-note" role="status">
-              Prototyp: Öffnet später das Stripe Customer Portal — dort verwaltest
-              und kündigst du dein Abo. {/* TODO: Stripe Customer Portal (§9.3) */}
+              Prototyp: Öffnet später das Stripe Customer Portal — dort verwaltest und kündigst du
+              dein Abo. {/* TODO: Stripe Customer Portal (§9.3) */}
             </div>
           )}
         </div>
