@@ -55,6 +55,15 @@
 
 html {
   -webkit-text-size-adjust: 100%;
+  /* Native-App-Gefühl: kein grauer Tap-Kasten auf Touch, kein Gummiband-Scroll */
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* Markierter Text im ruhigen Fitnessmythen-Rot statt Browser-Blau */
+::selection {
+  background: rgba(200, 16, 46, 0.14);
+  color: var(--ink);
 }
 
 .fm-root {
