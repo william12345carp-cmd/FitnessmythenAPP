@@ -365,6 +365,27 @@ html {
   padding: 13px;
 }
 
+/* ---------- Onboarding-Fortschritt ---------- */
+.fm-onb-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.fm-progress {
+  display: flex;
+  gap: 6px;
+}
+.fm-progress__seg {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--hairline-strong);
+  transition: background 300ms var(--ease);
+}
+.fm-progress__seg--on {
+  background: var(--fm-red);
+}
+
 /* ---------- Eingabefelder ---------- */
 .fm-field {
   display: flex;
@@ -432,13 +453,13 @@ html {
 }
 .fm-card__title {
   font-family: var(--serif);
-  font-size: 27px;
+  font-size: 28px;
   font-weight: 600;
-  line-height: 1.15;
-  letter-spacing: -0.018em;
-  font-variation-settings: "opsz" 28;
+  line-height: 1.13;
+  letter-spacing: -0.02em;
+  font-variation-settings: "opsz" 30;
   text-wrap: balance;
-  margin: 0 0 var(--space-3);
+  margin: 0 0 var(--space-4);
 }
 .fm-card__detail {
   font-size: 15.5px;
@@ -447,29 +468,234 @@ html {
   margin: 0 0 var(--space-4);
   text-wrap: pretty;
 }
-/* "Warum": Begründung als ruhiges Pull-Quote in Serif-Kursiv */
+
+/* Trainings-Spec als ruhige Chips (Sätze · Wdh · Pause) */
+.fm-spec {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+}
+.fm-chip {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  background: var(--paper-sunken);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Nummerierte Übungsschritte — serifige Kursiv-Ziffern wie im Print-Magazin */
+.fm-steplist {
+  counter-reset: step;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+.fm-step {
+  position: relative;
+  padding-left: 30px;
+}
+.fm-step::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 22px;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 19px;
+  line-height: 1.2;
+  color: var(--fm-red-ink);
+}
+.fm-step__name {
+  display: block;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 3px;
+}
+.fm-step__detail {
+  display: block;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+/* Intensitäts-/Technik-Hinweis als ruhige Notiz */
+.fm-tip {
+  margin: var(--space-4) 0 0;
+  padding: 10px 12px;
+  background: var(--paper-sunken);
+  border-radius: var(--radius-sm);
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  text-wrap: pretty;
+}
+
+/* "Warum": Begründung als ruhiges Pull-Quote in Serif-Kursiv, mit Label */
 .fm-card__reason {
   font-family: var(--serif);
   font-style: italic;
   font-size: 16px;
   line-height: 1.5;
   color: var(--ink-soft);
-  margin: 0;
-  padding: 2px 0 2px 16px;
+  margin: var(--space-6) 0 0;
+  padding: 0 0 0 16px;
   border-left: 2px solid var(--fm-red);
   text-wrap: pretty;
 }
-.fm-card__secondary {
-  margin-top: var(--space-5);
-  padding-top: var(--space-4);
+.fm-card__reason-label {
+  display: block;
+  font-family: var(--sans);
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fm-red-ink);
+  margin-bottom: 5px;
+}
+
+/* Nachrangiger Kontext (Ernährung) — ohne eigenen Haken (§5.5) */
+.fm-card__nutrition {
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
   border-top: 1px solid var(--hairline);
-  font-size: 14.5px;
-  line-height: 1.62;
+}
+/* Protein-Ziel: prominent, aber ruhig */
+.fm-protein {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 12px 15px;
+  margin-bottom: var(--space-4);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius);
+  background: var(--paper-sunken);
+}
+.fm-protein__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--ink-soft);
+}
+.fm-protein__value {
+  font-family: var(--serif);
+  font-size: 25px;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+.fm-nutrition__lead {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0 0 var(--space-3);
   text-wrap: pretty;
 }
-.fm-card__secondary strong {
+/* Mahlzeiten als scannbare Liste: Tageszeit · Gericht · Gramm */
+.fm-meals {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.fm-meal {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  column-gap: var(--space-4);
+  padding: 11px 0;
+  border-top: 1px solid var(--hairline);
+}
+.fm-meal:first-child {
+  border-top: none;
+  padding-top: 2px;
+}
+.fm-meal__when {
+  grid-row: 1;
+  grid-column: 1;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+.fm-meal__food {
+  grid-row: 2;
+  grid-column: 1;
+  font-size: 14.5px;
+  line-height: 1.45;
   color: var(--ink);
+  margin-top: 2px;
+  text-wrap: pretty;
+}
+.fm-meal__grams {
+  grid-row: 1 / span 2;
+  grid-column: 2;
+  align-self: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+/* Reentry: sanfte Optionsliste statt Mahlzeitenplan */
+.fm-options {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.fm-option {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  font-size: 14.5px;
+  color: var(--ink);
+  padding-left: 16px;
+  position: relative;
+}
+.fm-option::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--fm-red);
+}
+.fm-option__grams {
+  color: var(--ink-soft);
+  font-weight: 600;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+.fm-nutrition__foot {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink-faint);
+  margin: var(--space-3) 0 0;
+  text-wrap: pretty;
+}
+.fm-nutrition__foot strong {
+  color: var(--ink-soft);
   font-weight: 600;
 }
 

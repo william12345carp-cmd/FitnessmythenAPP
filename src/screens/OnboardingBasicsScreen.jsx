@@ -57,8 +57,21 @@ export function OnboardingBasicsScreen() {
 
   return (
     <div className="fm-screen">
-      <span className="fm-eyebrow">Schritt 2 von 2</span>
-      <h1 className="fm-display fm-display--md" style={{ margin: "10px 0 6px" }}>
+      <div className="fm-onb-head">
+        <span className="fm-eyebrow">Schritt 2 von 2</span>
+        <div
+          className="fm-progress"
+          role="progressbar"
+          aria-valuenow={2}
+          aria-valuemin={1}
+          aria-valuemax={2}
+          aria-label="Onboarding-Fortschritt: Schritt 2 von 2"
+        >
+          <span className="fm-progress__seg fm-progress__seg--on" />
+          <span className="fm-progress__seg fm-progress__seg--on" />
+        </div>
+      </div>
+      <h1 className="fm-display fm-display--md" style={{ margin: "16px 0 6px" }}>
         Vier Angaben. Das war&rsquo;s.
       </h1>
       <p className="fm-body" style={{ marginBottom: 26 }}>
