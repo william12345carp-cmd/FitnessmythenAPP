@@ -951,3 +951,396 @@ html {
   cursor: pointer;
   font-family: var(--sans);
 }
+
+/* ============================================================================
+   [9] Wissen / Plan / Einkauf — gemeinsame Bausteine (Schritt 2–4)
+============================================================================ */
+
+/* Kategorie-Filter, horizontal scrollbar, ohne sichtbare Scrollbar */
+.fm-filter-row {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+  padding: 2px 2px var(--space-2);
+  margin: 0 0 var(--space-4);
+  scrollbar-width: none;
+}
+.fm-filter-row::-webkit-scrollbar {
+  display: none;
+}
+.fm-filter-chip {
+  flex: none;
+  appearance: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--ink-soft);
+  background: var(--paper-sunken);
+  border: 1px solid var(--hairline);
+  border-radius: 999px;
+  padding: 8px 14px;
+  transition:
+    background 160ms,
+    color 160ms,
+    border-color 160ms;
+}
+.fm-filter-chip[aria-pressed="true"] {
+  background: var(--fm-red);
+  border-color: var(--fm-red);
+  color: #fff;
+}
+.fm-filter-chip:focus-visible {
+  outline: 2px solid var(--fm-red);
+  outline-offset: 2px;
+}
+
+/* Klickbare Übersichtskarte (Artikel, Übung, Lebensmittel-Gruppe) */
+.fm-list-card {
+  display: block;
+  width: 100%;
+  text-align: left;
+  appearance: none;
+  cursor: pointer;
+  background: var(--paper-raised);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  padding: var(--space-4) var(--space-5);
+  margin-bottom: var(--space-3);
+  transition:
+    border-color 160ms,
+    box-shadow 160ms;
+}
+.fm-list-card:active {
+  box-shadow: var(--shadow-soft);
+}
+.fm-list-card:focus-visible {
+  outline: 2px solid var(--fm-red);
+  outline-offset: -2px;
+}
+.fm-list-card__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-2);
+  margin-bottom: 6px;
+}
+.fm-list-card__title {
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.01em;
+  font-variation-settings: "opsz" 20;
+  color: var(--ink);
+  margin: 0 0 6px;
+  text-wrap: balance;
+}
+.fm-list-card__preview {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Zurück-Button für Detailansichten */
+.fm-back {
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--sans);
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  padding: 0;
+  margin-bottom: var(--space-5);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.fm-back:focus-visible {
+  outline: 2px solid var(--fm-red);
+  outline-offset: 2px;
+}
+
+/* Typische-Fehler-Liste */
+.fm-fehler-list {
+  list-style: none;
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fm-fehler-list li {
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  padding-left: 20px;
+  position: relative;
+}
+.fm-fehler-list li::before {
+  content: "×";
+  position: absolute;
+  left: 0;
+  color: var(--ink-faint);
+  font-weight: 700;
+}
+
+/* Hervorgehobene Handlung — genau eine pro Artikel/Übung */
+.fm-aktion-box {
+  background: rgba(200, 16, 46, 0.05);
+  border-left: 3px solid var(--fm-red);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: var(--space-3) var(--space-4);
+  margin: var(--space-2) 0 var(--space-5);
+}
+.fm-aktion-box__label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--fm-red-ink);
+  margin-bottom: 4px;
+}
+.fm-aktion-box__text {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--ink);
+}
+
+/* Quellen-Fußnote */
+.fm-quellen {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--hairline);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.fm-quellen li {
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: var(--ink-faint);
+}
+
+/* Aufklappbare Übungs-/Sektionsdetails */
+.fm-accordion {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius);
+  margin-bottom: var(--space-3);
+  overflow: hidden;
+  background: var(--paper-raised);
+}
+.fm-accordion__trigger {
+  width: 100%;
+  appearance: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  text-align: left;
+  font-family: var(--sans);
+}
+.fm-accordion__trigger:focus-visible {
+  outline: 2px solid var(--fm-red);
+  outline-offset: -2px;
+}
+.fm-accordion__name {
+  font-size: 15.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.fm-accordion__meta {
+  font-size: 12px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.fm-accordion__chevron {
+  flex: none;
+  transition: transform 200ms var(--ease);
+  color: var(--ink-faint);
+}
+.fm-accordion__chevron--open {
+  transform: rotate(180deg);
+}
+.fm-accordion__panel {
+  padding: 0 var(--space-4) var(--space-4);
+  border-top: 1px solid var(--hairline);
+  padding-top: var(--space-4);
+}
+
+/* Makro-/Fortschrittsbalken */
+.fm-macro-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 6px;
+}
+.fm-macro-row__label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.fm-macro-row__value {
+  font-size: 13px;
+  color: var(--ink-soft);
+  font-variant-numeric: tabular-nums;
+}
+.fm-macro-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--paper-sunken);
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+.fm-macro-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--fm-red);
+}
+
+/* Wochentag-Übersicht (Plan-Tab) */
+.fm-week-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: var(--space-5);
+}
+.fm-week-day {
+  flex: 1;
+  text-align: center;
+  padding: 10px 2px;
+  border-radius: var(--radius-sm);
+  background: var(--paper-sunken);
+  border: 1px solid transparent;
+}
+.fm-week-day--training {
+  background: rgba(200, 16, 46, 0.07);
+  border-color: rgba(200, 16, 46, 0.18);
+}
+.fm-week-day--today {
+  border-color: var(--fm-red);
+}
+.fm-week-day__label {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--ink-faint);
+  margin-bottom: 3px;
+}
+.fm-week-day--training .fm-week-day__label {
+  color: var(--fm-red-ink);
+}
+.fm-week-day__dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--fm-red);
+}
+
+/* Abhakbare Einkaufsliste */
+.fm-check-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--hairline);
+  cursor: pointer;
+}
+.fm-check-item:last-child {
+  border-bottom: none;
+}
+.fm-check-item input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  flex: none;
+  accent-color: var(--fm-red);
+}
+.fm-check-item__label {
+  font-size: 14.5px;
+  color: var(--ink);
+  flex: 1;
+}
+.fm-check-item__amount {
+  font-size: 12.5px;
+  color: var(--ink-faint);
+  font-variant-numeric: tabular-nums;
+}
+.fm-check-item--done .fm-check-item__label {
+  color: var(--ink-faint);
+  text-decoration: line-through;
+}
+
+/* Lebensmittel-Item-Zeile (Gruppen-Detail, Vergleiche) */
+.fm-food-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-3);
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--hairline);
+}
+.fm-food-row:last-child {
+  border-bottom: none;
+}
+.fm-food-row__name {
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.fm-food-row__tipp {
+  font-size: 12.5px;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+.fm-food-row__protein {
+  font-size: 13px;
+  color: var(--fm-red-ink);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Vergleichs-Karte (A vs. B) */
+.fm-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3);
+  margin: var(--space-3) 0 var(--space-4);
+}
+.fm-compare__col {
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+.fm-compare__col--winner {
+  border-color: rgba(200, 16, 46, 0.3);
+  background: rgba(200, 16, 46, 0.04);
+}
+.fm-compare__name {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.fm-compare__stat {
+  font-size: 12px;
+  color: var(--ink-soft);
+  display: block;
+  margin-bottom: 2px;
+}
