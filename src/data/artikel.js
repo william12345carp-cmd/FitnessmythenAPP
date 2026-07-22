@@ -1,12 +1,17 @@
 /* Wissensbasis: 32 evidenzbasierte Artikel für den Wissen-Tab.
-   Struktur pro Artikel: kurzantwort (Kernaussage), warumWichtig, erklaerung
-   (einfache Sprache, kein Fachjargon), wissenschaft (Beleg), schritte (Umsetzung),
-   typischeFehler, aktion (genau eine konkrete Handlung), quellen. */
+   Struktur pro Artikel: emoji, kategorie (feine Taxonomie), kurzantwort
+   (Kernaussage), warumWichtig, erklaerung (einfache Sprache, kein Fachjargon),
+   wissenschaft (Beleg), schritte (Umsetzung), typischeFehler, aktion (genau
+   eine konkrete Handlung), mythos ({behauptung, wahrheit} bei Mythen-Artikeln,
+   sonst null), quellen. */
 
 export const KATEGORIEN = [
   "Alle",
+  "Abnehmen",
   "Ernährung",
-  "Training",
+  "Protein",
+  "Kalorien",
+  "Krafttraining",
   "Cardio",
   "Psychologie",
   "Schlaf & Stress",
@@ -19,7 +24,9 @@ export const ARTIKEL = [
   {
     id: "protein-bedarf",
     titel: "Wie viel Protein brauche ich wirklich?",
-    kategorie: "Ernährung",
+    kategorie: "Protein",
+    emoji: "🥩",
+    mythos: null,
     lesezeit: "4 min",
     kurzantwort:
       "Für gesunden Fettabbau bei vollem Muskelerhalt sind 1,6 bis 2,0 g Protein pro Kilogramm Zielgewicht optimal. Das ist mehr, als die meisten Menschen im Alltag essen — und genau das ändert am meisten.",
@@ -49,7 +56,9 @@ export const ARTIKEL = [
   {
     id: "kaloriendefizit",
     titel: "Kaloriendefizit: Was es wirklich bedeutet",
-    kategorie: "Ernährung",
+    kategorie: "Abnehmen",
+    emoji: "🔥",
+    mythos: null,
     lesezeit: "4 min",
     kurzantwort:
       "Ein Kaloriendefizit heißt: Du nimmst über einen längeren Zeitraum weniger Energie auf, als du verbrauchst. Das ist die einzige Voraussetzung für Fettabbau — alles andere ist Feintuning.",
@@ -80,6 +89,8 @@ export const ARTIKEL = [
     id: "kohlenhydrate-nicht-boese",
     titel: "Kohlenhydrate: Warum sie nicht böse sind",
     kategorie: "Ernährung",
+    emoji: "🍞",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Kohlenhydrate machen nicht per se dick. Sie liefern Energie für Alltag und Training und sind bei richtiger Wahl ein wichtiger Sättigungsfaktor.",
@@ -110,6 +121,8 @@ export const ARTIKEL = [
     id: "fette-welche-brauchst-du",
     titel: "Fette: Welche du brauchst, welche nicht",
     kategorie: "Ernährung",
+    emoji: "🥑",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Fett ist lebensnotwendig für Hormone und Vitaminaufnahme — aber mit 9 kcal pro Gramm auch die energiedichteste Nährstoffgruppe. Qualität und Menge entscheiden.",
@@ -140,6 +153,8 @@ export const ARTIKEL = [
     id: "ballaststoffe-unterschaetzt",
     titel: "Ballaststoffe: Warum sie unterschätzt werden",
     kategorie: "Ernährung",
+    emoji: "🌾",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Ballaststoffe sättigen ohne nennenswerte Kalorien, stabilisieren den Blutzucker und pflegen deinen Darm. Die meisten Menschen essen weniger als die Hälfte der empfohlenen Menge.",
@@ -169,6 +184,8 @@ export const ARTIKEL = [
     id: "wasser-bedarf",
     titel: "Wasser: Wie viel du wirklich brauchst",
     kategorie: "Ernährung",
+    emoji: "💧",
+    mythos: null,
     lesezeit: "2 min",
     kurzantwort:
       "Als grobe Richtschnur gelten 30–35 ml pro Kilogramm Körpergewicht täglich, mehr bei Hitze oder Sport. Wichtiger als die exakte Zahl: regelmäßig trinken, bevor Durst entsteht.",
@@ -199,6 +216,8 @@ export const ARTIKEL = [
     id: "restaurant-gesund-essen",
     titel: "Gesund essen im Restaurant – so geht's",
     kategorie: "Ernährung",
+    emoji: "🍽️",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Du musst beim Essengehen nicht verzichten. Mit wenigen bewussten Entscheidungen bleibt eine Restaurant-Mahlzeit problemlos im Rahmen.",
@@ -225,7 +244,9 @@ export const ARTIKEL = [
   {
     id: "kalorien-schaetzen-ohne-app",
     titel: "Kalorien schätzen ohne App",
-    kategorie: "Ernährung",
+    kategorie: "Kalorien",
+    emoji: "🖐️",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Mit ein paar Faustregeln und Handmaßen lässt sich eine Mahlzeit erstaunlich gut einschätzen — ganz ohne Waage oder App.",
@@ -254,7 +275,9 @@ export const ARTIKEL = [
   {
     id: "krafttraining-warum",
     titel: "Krafttraining: Warum jeder es braucht",
-    kategorie: "Training",
+    kategorie: "Krafttraining",
+    emoji: "🏋️",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Krafttraining schützt deine Muskeln im Kaloriendefizit, stärkt Knochen und Gelenke und verbessert deinen Alltag spürbar — unabhängig vom Alter.",
@@ -284,7 +307,9 @@ export const ARTIKEL = [
   {
     id: "progressive-overload",
     titel: "Progressive Overload: Das Prinzip hinter allem Muskelaufbau",
-    kategorie: "Training",
+    kategorie: "Krafttraining",
+    emoji: "📈",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Dein Körper passt sich nur an, wenn die Belastung stetig steigt. Ohne diese kleine, kontinuierliche Steigerung stagniert jeder Trainingsfortschritt.",
@@ -314,7 +339,9 @@ export const ARTIKEL = [
   {
     id: "trainingshaeufigkeit",
     titel: "Wie oft pro Woche trainieren?",
-    kategorie: "Training",
+    kategorie: "Krafttraining",
+    emoji: "📅",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Für spürbare Fortschritte reichen 2–3 Krafttrainingseinheiten pro Woche völlig aus. Regelmäßigkeit über Monate zählt mehr als Häufigkeit in einer einzelnen Woche.",
@@ -341,7 +368,9 @@ export const ARTIKEL = [
   {
     id: "home-workout-ohne-geraete",
     titel: "Home Workout ohne Geräte – was wirklich funktioniert",
-    kategorie: "Training",
+    kategorie: "Krafttraining",
+    emoji: "🏠",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Mit dem eigenen Körpergewicht lässt sich ein wirksames Ganzkörpertraining gestalten — kein Fitnessstudio nötig, um echte Fortschritte zu machen.",
@@ -368,7 +397,9 @@ export const ARTIKEL = [
   {
     id: "aufwaermen",
     titel: "Aufwärmen: Warum und wie (2 Minuten reichen)",
-    kategorie: "Training",
+    kategorie: "Krafttraining",
+    emoji: "🔄",
+    mythos: null,
     lesezeit: "2 min",
     kurzantwort:
       "Ein kurzes, dynamisches Aufwärmen bereitet Gelenke und Muskeln vor und senkt das Verletzungsrisiko — mehr als 2–3 Minuten braucht es dafür meist nicht.",
@@ -395,7 +426,9 @@ export const ARTIKEL = [
   {
     id: "regeneration",
     titel: "Regeneration: Warum Pausen Muskeln bauen",
-    kategorie: "Training",
+    kategorie: "Krafttraining",
+    emoji: "😴",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Muskeln wachsen nicht im Training, sondern in der Erholung danach — vor allem im Schlaf. Wer keine Pausen einplant, blockiert seinen eigenen Fortschritt.",
@@ -425,6 +458,8 @@ export const ARTIKEL = [
     id: "zone-2-training",
     titel: "Zone 2: Das unterschätzte Fettverbrennungs-Training",
     kategorie: "Cardio",
+    emoji: "🚶",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Zone 2 ist lockeres, aber stetiges Ausdauertraining, bei dem du dich noch problemlos unterhalten kannst. Es verbessert die Fettverbrennung und Grundfitness, ohne stark zu belasten.",
@@ -452,6 +487,8 @@ export const ARTIKEL = [
     id: "hiit-wann-sinnvoll",
     titel: "HIIT: Wann es wirklich sinnvoll ist",
     kategorie: "Cardio",
+    emoji: "⚡",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Hochintensives Intervalltraining spart Zeit und verbessert die Fitness effizient — ist aber kein Ersatz für Grundlagenausdauer oder Krafttraining, sondern eine sinnvolle Ergänzung.",
@@ -479,6 +516,8 @@ export const ARTIKEL = [
     id: "8000-schritte",
     titel: "8.000 Schritte täglich: Warum das reicht",
     kategorie: "Cardio",
+    emoji: "👟",
+    mythos: null,
     lesezeit: "2 min",
     kurzantwort:
       "Die oft zitierten 10.000 Schritte sind kein wissenschaftlich hergeleiteter Grenzwert. Bereits 7.000–8.000 Schritte pro Tag sind mit deutlich geringerem Sterberisiko verbunden.",
@@ -508,6 +547,8 @@ export const ARTIKEL = [
     id: "motivation-gewohnheiten",
     titel: "Motivation ist überschätzt – Gewohnheiten nicht",
     kategorie: "Psychologie",
+    emoji: "🧠",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Motivation ist ein Gefühl, das kommt und geht. Gewohnheiten laufen automatisch, auch an Tagen ohne Motivation — und genau darauf solltest du bauen.",
@@ -535,6 +576,8 @@ export const ARTIKEL = [
     id: "emotionales-essen",
     titel: "Emotionales Essen: Erkennen und unterbrechen",
     kategorie: "Psychologie",
+    emoji: "💭",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Emotionales Essen ist der Versuch, Gefühle wie Stress, Langeweile oder Einsamkeit mit Essen zu regulieren. Der erste Schritt ist, den Unterschied zu echtem Hunger zu erkennen.",
@@ -562,6 +605,8 @@ export const ARTIKEL = [
     id: "rueckfaelle-normal",
     titel: "Rückfälle sind normal – so gehst du damit um",
     kategorie: "Psychologie",
+    emoji: "🔁",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Ein Ausrutscher macht dich nicht dick. Erst die Reaktion darauf — Aufgeben oder normal weitermachen — entscheidet über den langfristigen Erfolg.",
@@ -589,6 +634,8 @@ export const ARTIKEL = [
     id: "perfektionismus-sabotage",
     titel: "Perfektionismus sabotiert dein Ziel",
     kategorie: "Psychologie",
+    emoji: "🎯",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Der Anspruch, alles perfekt zu machen, führt oft dazu, nach dem ersten kleinen Fehler ganz aufzuhören. Gute Umsetzung schlägt perfekte Theorie.",
@@ -618,6 +665,8 @@ export const ARTIKEL = [
     id: "schlaf-gewicht",
     titel: "Schlaf und Gewicht: Der unterschätzte Zusammenhang",
     kategorie: "Schlaf & Stress",
+    emoji: "🌙",
+    mythos: null,
     lesezeit: "4 min",
     kurzantwort:
       "Chronischer Schlafmangel unter 7 Stunden steigert dein Hungerhormon Ghrelin, senkt das Sättigungshormon Leptin und erschwert Fettabbau spürbar.",
@@ -648,6 +697,8 @@ export const ARTIKEL = [
     id: "cortisol-stress-gewicht",
     titel: "Cortisol: Wie Stress dein Gewicht beeinflusst",
     kategorie: "Schlaf & Stress",
+    emoji: "😤",
+    mythos: null,
     lesezeit: "3 min",
     kurzantwort:
       "Chronischer Stress erhöht dauerhaft dein Cortisollevel, was Appetit auf energiereiche Nahrung anregt und Bauchfett-Einlagerung begünstigt.",
@@ -677,6 +728,8 @@ export const ARTIKEL = [
     id: "mythos-abends-essen",
     titel: "Nach 18 Uhr essen macht dick",
     kategorie: "Mythen widerlegt",
+    emoji: "🕕",
+    mythos: { behauptung: "Kohlenhydrate nach 18 Uhr werden direkt als Fett gespeichert", wahrheit: "Deinem Körper ist die Uhrzeit egal — zählt nur die Kalorienbilanz des Tages." },
     lesezeit: "2 min",
     kurzantwort:
       "Mythos: Kohlenhydrate nach 18 Uhr werden direkt als Fett gespeichert. Wahrheit: Deinem Körper ist die Uhrzeit egal — zählt nur die Kalorienbilanz des Tages.",
@@ -702,6 +755,8 @@ export const ARTIKEL = [
     id: "mythos-kohlenhydrate-fett",
     titel: "Kohlenhydrate machen fett",
     kategorie: "Mythen widerlegt",
+    emoji: "🍞",
+    mythos: { behauptung: "Kohlenhydrate sind der Hauptgrund für Übergewicht", wahrheit: "Ein Kalorienüberschuss macht dick — unabhängig von der Nährstoffquelle." },
     lesezeit: "2 min",
     kurzantwort:
       "Mythos: Kohlenhydrate sind der Hauptgrund für Übergewicht. Wahrheit: Ein Kalorienüberschuss macht dick — unabhängig von der Nährstoffquelle.",
@@ -727,6 +782,8 @@ export const ARTIKEL = [
     id: "mythos-spot-reduction",
     titel: "Bauchfett gezielt verbrennen (Spot Reduction)",
     kategorie: "Mythen widerlegt",
+    emoji: "🎯",
+    mythos: { behauptung: "Bauchmuskelübungen verbrennen gezielt Bauchfett", wahrheit: "Lokaler Fettabbau an einer bestimmten Stelle ist physiologisch nicht möglich." },
     lesezeit: "2 min",
     kurzantwort:
       "Mythos: Bauchmuskelübungen verbrennen gezielt Bauchfett. Wahrheit: Lokaler Fettabbau an einer bestimmten Stelle ist physiologisch nicht möglich.",
@@ -752,6 +809,8 @@ export const ARTIKEL = [
     id: "mythos-muskelkater",
     titel: "Muskelkater = gutes Training",
     kategorie: "Mythen widerlegt",
+    emoji: "💪",
+    mythos: { behauptung: "Ohne Muskelkater hat das Training nicht gewirkt", wahrheit: "Muskelkater ist kein verlässlicher Indikator für Trainingserfolg." },
     lesezeit: "2 min",
     kurzantwort:
       "Mythos: Ohne Muskelkater hat das Training nicht gewirkt. Wahrheit: Muskelkater ist kein verlässlicher Indikator für Trainingserfolg.",
@@ -777,6 +836,8 @@ export const ARTIKEL = [
     id: "mythos-cardio-bestes",
     titel: "Cardio ist das Beste zum Abnehmen",
     kategorie: "Mythen widerlegt",
+    emoji: "🏃",
+    mythos: { behauptung: "Nur Cardio bringt beim Abnehmen etwas", wahrheit: "Krafttraining schützt zusätzlich deine Muskelmasse und ist dafür mindestens genauso wichtig." },
     lesezeit: "2 min",
     kurzantwort:
       "Mythos: Nur Cardio bringt beim Abnehmen etwas. Wahrheit: Krafttraining schützt zusätzlich deine Muskelmasse und ist dafür mindestens genauso wichtig.",
@@ -802,6 +863,8 @@ export const ARTIKEL = [
     id: "mythos-frauen-maennlich",
     titel: "Frauen werden durch Krafttraining männlich",
     kategorie: "Mythen widerlegt",
+    emoji: "🏋️‍♀️",
+    mythos: { behauptung: "Schweres Krafttraining lässt Frauen 'unweiblich' und muskulös wirken", wahrheit: "Das ist physiologisch praktisch unmöglich." },
     lesezeit: "2 min",
     kurzantwort:
       "Mythos: Schweres Krafttraining lässt Frauen 'unweiblich' und muskulös wirken. Wahrheit: Das ist physiologisch praktisch unmöglich.",
@@ -827,6 +890,8 @@ export const ARTIKEL = [
     id: "mythos-intervallfasten",
     titel: "Intervallfasten ist die beste Diät",
     kategorie: "Mythen widerlegt",
+    emoji: "⏰",
+    mythos: { behauptung: "Intervallfasten hat einen magischen Stoffwechsel-Vorteil gegenüber anderen Diätformen", wahrheit: "Es ist ein Werkzeug wie jedes andere — nicht überlegen, nur anders." },
     lesezeit: "2 min",
     kurzantwort:
       "Mythos: Intervallfasten hat einen magischen Stoffwechsel-Vorteil gegenüber anderen Diätformen. Wahrheit: Es ist ein Werkzeug wie jedes andere — nicht überlegen, nur anders.",
@@ -852,6 +917,8 @@ export const ARTIKEL = [
     id: "mythos-detox",
     titel: "Detox und Entgiftungskuren",
     kategorie: "Mythen widerlegt",
+    emoji: "🧪",
+    mythos: { behauptung: "Detox-Kuren entgiften den Körper von Schadstoffen", wahrheit: "Leber und Nieren erledigen diese Aufgabe zuverlässig, ganz ohne Saftkur." },
     lesezeit: "2 min",
     kurzantwort:
       "Mythos: Detox-Kuren entgiften den Körper von Schadstoffen. Wahrheit: Leber und Nieren erledigen diese Aufgabe zuverlässig, ganz ohne Saftkur.",
@@ -879,6 +946,8 @@ export const ARTIKEL = [
     id: "heisshunger-besiegen",
     titel: "Wie werde ich Heißhunger los?",
     kategorie: "Hunger & Heißhunger",
+    emoji: "🍫",
+    mythos: null,
     lesezeit: "4 min",
     kurzantwort:
       "Heißhunger ist kein Charakterfehler, sondern meist ein Nährstoff- oder Schlafmangel-Signal. Stabiler Blutzucker durch Protein und Ballaststoffe nimmt ihm die Grundlage.",

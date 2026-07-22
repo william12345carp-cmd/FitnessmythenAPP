@@ -8,7 +8,7 @@
    Bundles, siehe supabase/functions/ai-coach). Stufe 3 (Personalisierung) kommt
    aus dem bereits geladenen Profil im App-Store, kein separater Fetch nötig. */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useApp } from "../store/appStore.jsx";
 import { aiCoachService } from "../services/aiCoachService.js";
 import { ARTIKEL, KATEGORIEN } from "../data/artikel.js";
@@ -130,6 +130,7 @@ function CoachBox({ profil, onOpenArtikel }) {
 
       {antwort?.typ === "artikel" && (
         <button className="fm-coach-antwort fm-coach-antwort--artikel" onClick={() => onOpenArtikel(antwort.artikel.id)} type="button">
+          <span aria-hidden="true">{antwort.artikel.emoji}</span>{" "}
           <span className="fm-eyebrow fm-eyebrow--red" style={{ fontSize: 10 }}>
             {antwort.artikel.kategorie}
           </span>
@@ -170,8 +171,13 @@ function CoachBox({ profil, onOpenArtikel }) {
 }
 
 function ArticleDetail({ artikel, onBack }) {
+  const topRef = useRef(null);
+  useEffect(() => {
+    topRef.current?.scrollIntoView({ block: "start" });
+  }, []);
+
   return (
-    <div className="fm-screen" style={{ paddingTop: 22 }}>
+    <div className="fm-screen" style={{ paddingTop: 22 }} ref={topRef}>
       <button className="fm-back" onClick={onBack} type="button">
         ← Zurück
       </button>
@@ -184,8 +190,24 @@ function ArticleDetail({ artikel, onBack }) {
           </span>
         </div>
 
+        <span className="fm-list-card__emoji" aria-hidden="true">
+          {artikel.emoji}
+        </span>
         <h1 className="fm-card__title">{artikel.titel}</h1>
         <p className="fm-card__detail">{artikel.kurzantwort}</p>
+
+        {artikel.mythos && (
+          <div className="fm-mythos-box">
+            <p className="fm-mythos-box__zeile">
+              <span className="fm-mythos-box__label">Mythos</span>
+              {artikel.mythos.behauptung}
+            </p>
+            <p className="fm-mythos-box__zeile fm-mythos-box__zeile--wahrheit">
+              <span className="fm-mythos-box__label fm-mythos-box__label--wahrheit">Wahrheit</span>
+              {artikel.mythos.wahrheit}
+            </p>
+          </div>
+        )}
 
         <p className="fm-card__reason">
           <span className="fm-card__reason-label">Warum wichtig</span>
@@ -303,6 +325,9 @@ export function WissenScreen() {
 
       {gefiltert.map((a) => (
         <button className="fm-list-card" key={a.id} onClick={() => setOpenId(a.id)} type="button">
+          <span className="fm-list-card__emoji" aria-hidden="true">
+            {a.emoji}
+          </span>
           <div className="fm-list-card__meta">
             <span className="fm-eyebrow fm-eyebrow--red" style={{ fontSize: 10 }}>
               {a.kategorie}
